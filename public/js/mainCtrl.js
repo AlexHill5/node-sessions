@@ -1,5 +1,5 @@
 angular.module("myChats").controller("mainCtrl", function($scope, mainSrvc, $interval){
-  $scope.test = "Chatting With Cookies is the Best";
+  $scope.test = "Chatting is the Best";
 
   $scope.addChat = function(chatmessage){
     mainSrvc.addChats(chatmessage).then(function(){
@@ -13,9 +13,6 @@ angular.module("myChats").controller("mainCtrl", function($scope, mainSrvc, $int
       $scope.chats = response;
 
     });
-    mainSrvc.getCookies().then(function(response){
-      $scope.cookies = response
-    })
   }
 
   $scope.deleteChats = function(){
@@ -24,7 +21,11 @@ angular.module("myChats").controller("mainCtrl", function($scope, mainSrvc, $int
     });
   }
 
-  $scope.sendCookie = mainSrvc.sendCookie;
+  $scope.login = function(){
+    mainSrvc.login($scope.username).then(function(){
+      $scope.loggedin = $scope.username;
+    })
+  }
 
   getData();
 

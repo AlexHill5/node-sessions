@@ -1,29 +1,21 @@
 angular.module("myChats").service("mainSrvc", function($http){
 
-  var baseUrl = "";
-
   this.getChats = function(){
-    return $http.get(baseUrl + "/api/chats").then(
+    return $http.get("/api/chats").then(
       function(response){
         return response.data;
     })
   }
 
   this.addChats = function(chat){
-    return $http.post(baseUrl + "/api/chats", chat)
+    return $http.post("/api/chats", chat)
   }
 
   this.deleteChats = function(){
-    return $http.delete(baseUrl + "/api/chats");
+    return $http.delete("/api/chats");
   }
 
-  this.sendCookie = function(){
-    return $http.post(baseUrl + "/api/cookies");
-  }
-  this.getCookies = function(){
-    return $http.get(baseUrl + "/api/cookies").then(
-      function(response){
-        return response.data;
-    });
+  this.login = function(username){
+    return $http.post("/api/login/"+username);
   }
 });

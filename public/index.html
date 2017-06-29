@@ -5,35 +5,53 @@
     <title>Cookie Chat With Friends</title>
   </head>
   <body ng-controller = "mainCtrl">
+    <section class="main">
     <h3>{{test}}</h3>
+
+    <div>
+      <input ng-model="username" placeholder="Username"/>
+      <button ng-click="login()"> Login </button>
+    </div>
+  <form ng-submit="addChat(newChat)">
+    <input type="text" placeholder="Say the things" ng-model="newChat.message">
+    <button type="submit"> sayStuff </button>
+    <!-- <button ng-click ="deleteChats()"> Armeggeddon </button> -->
+  </form>
 
     <style>
     body, html{
-      margin: 0;
-      padding: 0;
+      margin: 20;
+      padding: 20;
     }
-
+    .main{
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h3{
+      margin:0 auto;
+      text-align: center;
+    }
     form{
-      positon:absolute;
+      margin:0 auto;
     }
       .message-pane{
-        height:85vh;
-        width:70vw;
-        float:left;
+        max-height:85vh;
+        width:100%;
         padding:10px;
+        margin:0 auto;
+
       }
       .messages{
         overflow:auto;
         max-height: 90%;
+        margin: 0 auto;
+        padding:15px;
       }
-      .cookies{
-        height:85vh;
-        width:25vw;
-        overflow:auto;
-        float:left;
-      }
-      .cookie {
-        display:block;
+      .message{
+        margin: 5px;
+        border:1px solid #666;
+        padding:5px;
+        border-radius: 2px;
       }
       span.message {
         padding-left: 60px;
@@ -42,36 +60,41 @@
       .right {
         float:right;
       }
+      .time{
+        margin-left: 10px;
+        font-size: .75em;
+        color:#666;
+        float:right;
+      }
+      button{
+       margin-bottom: 3px;
+      }
+      .messageText{
+        margin-left: 20px;
+      }
+      .mine{
+        background-color: lightblue;
+      }
     </style>
 
 
 
     <div class = "message-pane">
-      <form ng-submit="addChat(newChat)">
-      <input type="text" placeholder="Say the things" ng-model="newChat.message">
-      <button type="submit"> sayStuff </button>
-      <!-- <button ng-click ="deleteChats()"> Armeggeddon </button> -->
-    </form>
+
       <div class = "messages">
-      <div class = "message" ng-repeat = "chat in chats">
-        <span class = "cookie">{{chat.cookie}}</span>
-        <span class = "message">{{chat.message}} </span>
+      <div class = "message" ng-class="{mine:chat.username == loggedin}" ng-repeat = "chat in chats">
+        <span class = "cookie">{{chat.username || 'Mystery Person'}}  <span class = "time">{{chat.createdAt | date : "H:mm"}}</span></span>
+        <div class="messageText">{{chat.message}}</div>
       </div>
     </div>
     </div>
-    <div class = "cookies">
-      <button ng-click = "sendCookie()">
-        Send Cookie
-      </button>
-      <div class = "message" ng-repeat = "(key, cookie) in cookies.cookies">
-        {{key}}<span class="right">{{cookie}}</span>
-      </div>
-    </div>
+  </section>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.js" charset="utf-8"></script>
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/mainCtrl.js" charset="utf-8"></script>
     <script src="js/mainSrvc.js" charset="utf-8"></script>
+
   </body>
 </html>
